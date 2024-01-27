@@ -12,4 +12,7 @@ docker exec -it db psql -U postgres -d postgres
 \q # quit
 ```
 
+# Rust init
+```
+cargo new backend
 ```
