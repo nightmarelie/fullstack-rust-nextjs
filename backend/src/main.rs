@@ -25,5 +25,24 @@ const NOT_FOUND: &str = "HTTP/1.1 404 NOT FOUND\r\n\r\n";
 const INTERNAL_ERROR: &str = "HTTP/1.1 500 INTERNAL ERROR\r\n\r\n";
 
 fn main() {
-    println!("Hello, world!");
+    // set database
+    if let Err(_) = set_database() {
+        println!("Error setting up database");
+        return;
+    }
+
+    //start server and print port
+        let listener = TcpListener::bind(format!("0.0.0.0:8080")).unwrap();
+        println!("Server listening on port 8080");
+
+        for stream in listener.incoming() {
+            match stream {
+                Ok(stream) => {
+                    handle_client(stream);
+                }
+                Err(e) => {
+                    println!("Unable to connect: {}", e);
+                }
+            }
+        }
 }
