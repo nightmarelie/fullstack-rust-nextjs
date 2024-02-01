@@ -1,4 +1,16 @@
 services:
+  frontend-next:
+    container_name: frontend-next
+    image: frontend-next:latest
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8080
+    depends_on:
+      - backend-rust
   backend-rust:
     container_name: backend-rust
     image: backend-rust:latest
