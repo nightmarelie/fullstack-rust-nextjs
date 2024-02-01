@@ -13,11 +13,10 @@ struct User {
     id: Option<i32>,
     name: String,
     email: String,
-    password: Option<String>,
 }
 
 // CONSTANTS
-const DATABASE_URL: &str = env!("DATABASE_URL");
+const DB_URL: &str = env!("DATABASE_URL");
 // Define some responses
 const OK_RESPONSE: &str =
     "HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nAccess-Control-Allow-Origin: *\r\nAccess-Control-Allow-Methods: GET, POST, PUT, DELETE\r\nAccess-Control-Allow-Headers: Content-Type\r\n\r\n";
@@ -56,8 +55,7 @@ fn set_database() -> Result<(), PostgresError> {
         CREATE TABLE IF NOT EXISTS users (
             id SERIAL PRIMARY KEY,
             name VARCHAR NOT NULL,
-            email VARCHAR NOT NULL,
-            password VARCHAR NOT NULL
+            email VARCHAR NOT NULL
         )
     "
     )?;
